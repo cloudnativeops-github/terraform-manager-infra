@@ -13,7 +13,7 @@ func TestTerraformRegionAndAccountID(t *testing.T) {
     // Set up options for Terraform initialization and deployment
     terraformOptions := &terraform.Options{
         // Specify the path to your Terraform code
-        TerraformDir: "../terraform-manager-infra",
+        TerraformDir: "../",
     }
 
     // Defer the cleanup of resources until the test is complete
