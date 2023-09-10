@@ -3,25 +3,35 @@ package test
 import (
     "testing"
     "os"
-    "github.com/gruntwork-io/terratest/modules/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/sts"
     "github.com/stretchr/testify/assert"
 )
 
-func TestAWSResourcesInAccount(t *testing.T) {
-    // Specify the AWS region where you are creating resources.
-    awsRegion := "us-east-1"
+func TestAWSAccountID(t *testing.T) {
+    // Create an AWS session using your AWS credentials.
+    sess, err := session.NewSession()
+    if err != nil {
+        t.Fatalf("Failed to create AWS session: %v", err)
+    }
+
+    // Create an STS (Security Token Service) client to retrieve the account ID.
+    svc := sts.New(sess)
+
+    // Use the GetCallerIdentity API to get information about the calling account.
+    identity, err := svc.GetCallerIdentity(&sts.GetCallerIdentityInput{})
+    if err != nil {
+        t.Fatalf("Failed to get caller identity: %v", err)
+    }
+
+    // Extract the AWS account ID from the caller identity.
+    accountID := *identity.Account
 
     // Specify the expected AWS account ID.
     expectedAccountID := "377308807353" // Replace with your actual AWS account ID.
 
-    // Get the AWS account ID from AWS in the specified region.
-    accountID := aws.GetAccountId(t, awsRegion)
-
     // Check if the retrieved AWS account ID matches the expected value.
     assert.Equal(t, expectedAccountID, accountID, "AWS account ID does not match the expected value")
-
-    // Now, you can use Terratest to deploy and test AWS resources in this account.
-    // Implement your resource deployment and testing logic here.
 }
 
 func TestMain(m *testing.M) {
