@@ -14,15 +14,8 @@ func TestAWSResourcesInAccount(t *testing.T) {
     // Specify the expected AWS account ID.
     expectedAccountID := "377308807353" // Replace with your actual AWS account ID.
 
-    // Retrieve the AWS session using your AWS credentials.
-    awsOptions := aws.NewOptions(awsRegion)
-    awsSession, err := aws.NewSession(awsOptions)
-    if err != nil {
-        t.Fatalf("Failed to create AWS session: %v", err)
-    }
-
-    // Get the AWS account ID from the session.
-    accountID, err := aws.GetAccountIDE(t, awsRegion, awsSession)
+    // Get the AWS account ID from AWS in the specified region.
+    accountID, err := aws.GetAccountIDE(t, awsRegion)
     if err != nil {
         t.Fatalf("Failed to get AWS account ID: %v", err)
     }
