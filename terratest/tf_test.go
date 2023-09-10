@@ -2,39 +2,46 @@ package test
 
 import (
     "testing"
+    "os"
     "github.com/gruntwork-io/terratest/modules/aws"
-    "github.com/gruntwork-io/terratest/modules/terraform"
     "github.com/stretchr/testify/assert"
 )
 
-func TestTerraformRegionAndAccountID(t *testing.T) {
-    t.Parallel()
+func TestAWSResourcesInAccount(t *testing.T) {
+    // Specify the AWS region where you are creating resources.
+    awsRegion := "us-east-1"
 
-    // Set up options for Terraform initialization and deployment
-    terraformOptions := &terraform.Options{
-        // Specify the path to your Terraform code
-        TerraformDir: "../",
+    // Specify the expected AWS account ID.
+    expectedAccountID := "377308807353" // Replace with your actual AWS account ID.
+
+    // Retrieve the AWS session using your AWS credentials.
+    awsOptions := aws.NewOptions(awsRegion)
+    awsSession, err := aws.NewSession(awsOptions)
+    if err != nil {
+        t.Fatalf("Failed to create AWS session: %v", err)
     }
 
-    // Defer the cleanup of resources until the test is complete
-    defer terraform.Destroy(t, terraformOptions)
+    // Get the AWS account ID from the session.
+    accountID, err := aws.GetAccountIDE(t, awsRegion, awsSession)
+    if err != nil {
+        t.Fatalf("Failed to get AWS account ID: %v", err)
+    }
 
-    // Initialize and apply the Terraform configuration
-    terraform.InitAndApply(t, terraformOptions)
+    // Check if the retrieved AWS account ID matches the expected value.
+    assert.Equal(t, expectedAccountID, accountID, "AWS account ID does not match the expected value")
 
-    // Retrieve the AWS region and account ID
-    //region := aws.GetRegion(t)
-    accountID := aws.GetAccountId(t)
-	//vpcID := terraform.Output(t, terraformOptions, "vpc_id")
+    // Now, you can use Terratest to deploy and test AWS resources in this account.
+    // Implement your resource deployment and testing logic here.
+}
 
-    // Check if the region matches the expected region
-    //expectedRegion := "us-west-2"  // Set your expected AWS region
-    //assert.Equal(t, expectedRegion, region)
+func TestMain(m *testing.M) {
+    // Set up any necessary AWS credentials and configuration here.
 
-    // Check if the account ID matches the expected account ID
-    expectedAccountID := "377308807353"  // Set your expected AWS account ID
-    assert.Equal(t, expectedAccountID, accountID)
+    // Run the tests.
+    exitCode := m.Run()
 
-	//vpc := aws.GetVpcById(t, vpcID)
-	//assert.Equal(t, "10.0.0.0/16", vpc.CidrBlock)
+    // Clean up or perform any necessary teardown here.
+
+    // Exit with the appropriate exit code.
+    os.Exit(exitCode)
 }
