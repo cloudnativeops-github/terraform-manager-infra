@@ -8,7 +8,7 @@ import (
     "github.com/stretchr/testify/assert"
 )
 
-func TestAWSAccountID(t *testing.T) {
+func TestAWSAccountIDRegion(t *testing.T) {
     // Create an AWS session using your AWS credentials.
     sess, err := session.NewSession()
     if err != nil {
