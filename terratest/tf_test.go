@@ -8,7 +8,7 @@ import (
     "github.com/stretchr/testify/assert"
 )
 
-func TestAWSAccountID(t *testing.T) {
+func TestAWSAccountIDRegion(t *testing.T) {
     // Create an AWS session using your AWS credentials.
     sess, err := session.NewSession()
     if err != nil {
@@ -25,12 +25,15 @@ func TestAWSAccountID(t *testing.T) {
     }
 
     // Extract the AWS account ID from the caller identity.
+    region := *sess.Config.Region
     accountID := *identity.Account
 
     // Specify the expected AWS account ID.
+    expectedRegion := "us-east-1"
     expectedAccountID := "377308807353" // Replace with your actual AWS account ID.
 
     // Check if the retrieved AWS account ID matches the expected value.
+    assert.Equal(t, expectedRegion, region, "AWS Region does not match the expected value")
     assert.Equal(t, expectedAccountID, accountID, "AWS account ID does not match the expected value")
 }
 
