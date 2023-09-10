@@ -15,10 +15,7 @@ func TestAWSResourcesInAccount(t *testing.T) {
     expectedAccountID := "377308807353" // Replace with your actual AWS account ID.
 
     // Get the AWS account ID from AWS in the specified region.
-    accountID, err := aws.GetAccountId(t, awsRegion)
-    if err != nil {
-        t.Fatalf("Failed to get AWS account ID: %v", err)
-    }
+    accountID := aws.GetAccountId(t, awsRegion)
 
     // Check if the retrieved AWS account ID matches the expected value.
     assert.Equal(t, expectedAccountID, accountID, "AWS account ID does not match the expected value")
