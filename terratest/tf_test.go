@@ -15,7 +15,7 @@ func TestAWSResourcesInAccount(t *testing.T) {
     expectedAccountID := "377308807353" // Replace with your actual AWS account ID.
 
     // Get the AWS account ID from AWS in the specified region.
-    accountID, err := aws.GetAccountIDE(t, awsRegion)
+    accountID, err := aws.GetAccountId(t, awsRegion)
     if err != nil {
         t.Fatalf("Failed to get AWS account ID: %v", err)
     }
