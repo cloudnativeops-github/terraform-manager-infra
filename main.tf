@@ -1,6 +1,6 @@
 resource "aws_vpc" "vpc-local" {
   cidr_block           = var.vpccidr
-  enale_dns_support    = true
+  enable_dns_support   = true
   enable_dns_hostnames = true
   tags                 = var.vpctag
 }
