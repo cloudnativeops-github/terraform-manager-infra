@@ -90,5 +90,6 @@ variable "allow-eip" {
 }
 
 variable "environment" {
+  type    = string
   default = null
 }

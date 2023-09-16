@@ -95,3 +95,7 @@ resource "aws_nat_gateway" "nat-gw" {
   allocation_id = aws_eip.nat-gw-eip[0].id
   depends_on    = [aws_eip.nat-gw-eip]
 }
+
+resource "aws_s3_bucket" "mybucket" {
+  bucket = "${var.environment}-myorg-testbucket"
+}
