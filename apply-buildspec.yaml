@@ -43,6 +43,6 @@ phases:
   build:
     commands:
       - terraform init
-      - terraform apply -auto-approve -var-file="dev_variable.tfvars"
+      - terraform apply -auto-approve -var-file="dev_variables.tfvars"
 
 

@@ -43,6 +43,6 @@ phases:
   build:
     commands:
       - terraform init
-      - terraform plan -var-file="dev_variable.tfvars"
+      - terraform plan -var-file="dev_variables.tfvars"
 
 
