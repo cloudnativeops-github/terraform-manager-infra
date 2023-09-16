@@ -25,7 +25,7 @@ variable "pub_cidrs" {
 variable "azs" {
   type        = list(string)
   description = "azs used for this deployment"
-  default     = ["ua-east-1a", "us-east-1b", "us-east-1c"]
+  default     = ["us-east-1a", "us-east-1b", "us-east-1c"]
 }
 
 variable "pubtags" {
