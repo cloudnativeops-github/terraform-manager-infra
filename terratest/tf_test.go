@@ -30,7 +30,7 @@ func TestAWSAccountIDRegion(t *testing.T) {
 
     // Specify the expected AWS account ID.
     expectedRegion := "us-east-1"
-    expectedAccountID := "377308807353" // Replace with your actual AWS account ID.
+    expectedAccountID := "132943428091" // Replace with your actual AWS account ID.
 
     // Check if the retrieved AWS account ID matches the expected value.
     assert.Equal(t, expectedRegion, region, "AWS Region does not match the expected value")
