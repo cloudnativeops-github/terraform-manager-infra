@@ -1,0 +1,50 @@
+version: 0.2
+
+env:
+  git-credential-helper: yes
+  #variables:
+  # key: "value"
+  # key: "value"
+  #parameter-store:
+  # key: "value"
+  # key: "value"
+  #secrets-manager:
+  # key: secret-id:json-key:version-stage:version-id
+  # key: secret-id:json-key:version-stage:version-id
+  #exported-variables:
+  # - variable
+  # - variable
+  #batch:
+  #fast-fail: true
+  #build-list:
+  #build-matrix:
+#build-graph:
+phases:
+  install:
+    runtime-versions:
+      golang: 1.20
+  pre_build:
+    commands:
+      - access_key=$(aws ssm get-parameter --name "dev_access_key" --with-decryption --query "Parameter.Value" --output text)
+      - secret_key=$(aws ssm get-parameter --name "dev_secret_key" --with-decryption --query "Parameter.Value" --output text)
+      - export AWS_ACCESS_KEY_ID=$access_key
+      - export AWS_SECRET_ACCESS_KEY=$secret_key
+      - export AWS_DEFAULT_REGION=us-east-1
+#      - echo "installing terraform"
+#      - wget https://releases.hashicorp.com/terraform/1.5.7/terraform_1.5.7_linux_arm64.zip
+#      - unzip terraform_1.5.7_linux_arm64.zip
+#      - ls -l
+#      - mv terraform /usr/local/bin
+#      - chmod a+x /usr/local/bin/terraform
+      - yum install -y yum-utils
+      - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+      - yum -y install terraform
+      - terraform version
+      - echo "Installing Tflint"
+      - curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+  build:
+    commands:
+      - terraform init
+      - terraform validate
+      - tflint
+

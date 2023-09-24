@@ -1,0 +1,42 @@
+version: 0.2
+
+env:
+  #variables:
+  # key: "value"
+  # key: "value"
+  #parameter-store:
+  # key: "value"
+  # key: "value"
+  #secrets-manager:
+  # key: secret-id:json-key:version-stage:version-id
+  # key: secret-id:json-key:version-stage:version-id
+  #exported-variables:
+  # - variable
+  # - variable
+  git-credential-helper: yes
+  #batch:
+  #fast-fail: true
+  #build-list:
+  #build-matrix:
+#build-graph:
+phases:
+  install:
+    runtime-versions:
+      golang: 1.20
+  pre_build:
+    commands:
+      - yum install -y yum-utils
+      - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+      - yum -y install terraform
+      - cd terratest
+      - echo "Installing terratest packages"
+      - go mod init "tftest"
+      - go get github.com/gruntwork-io/terratest/modules/aws
+      - go get github.com/gruntwork-io/terratest/modules/terraform
+      - go get github.com/aws/aws-sdk-go/aws/session
+      - go get github.com/aws/aws-sdk-go/service/sts
+      - go get github.com/stretchr/testify/assert
+  build:
+    commands:
+      - echo "Running terra test"
+      - go test -v
