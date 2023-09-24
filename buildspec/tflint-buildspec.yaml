@@ -1,6 +1,7 @@
 version: 0.2
 
-  env:
+env:
+  git-credential-helper: yes
   #variables:
   # key: "value"
   # key: "value"
@@ -13,7 +14,6 @@ version: 0.2
   #exported-variables:
   # - variable
   # - variable
-     git-credential-helper: yes
   #batch:
   #fast-fail: true
   #build-list:
