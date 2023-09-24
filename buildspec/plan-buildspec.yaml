@@ -45,7 +45,7 @@ phases:
       - git checkout ${BRANCH_NAME}
   build:
     commands:
-      - terraform init -backend-config=$(pwd)/${ENV}_backend.tf
-      - terraform plan -backend-config=$(pwd)/${ENV}_backend.tf -var-file="${ENV}_variables.tfvars"
+      - terraform init -backend-config=$(pwd)/backend/${ENV}_backend.tf
+      - terraform plan -backend-config=$(pwd)/backend/${ENV}_backend.tf -var-file="${ENV}_variables.tfvars"
 
 
