@@ -44,7 +44,7 @@ phases:
       - curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
   build:
     commands:
-      - terraform -backend-config=$(pwd)/${ENV}_backend.tf init
+      - terraform init -backend-config=$(pwd)/${ENV}_backend.tf
       - terraform validate
       - tflint
 
