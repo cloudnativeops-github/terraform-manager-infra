@@ -43,7 +43,7 @@ phases:
       - git checkout ${BRANCH_NAME}
   build:
     commands:
-      - terraform init
-      - terraform apply -auto-approve -var-file="${ENV}_variables.tfvars"
+      - terraform init -backend-config=$(pwd)/${ENV}_backend.tf
+      - terraform apply -auto-approve -backend-config=$(pwd)/${ENV}_backend.tf -var-file="${ENV}_variables.tfvars"
 
 
