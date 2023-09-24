@@ -15,13 +15,11 @@ variable "vpctag" {
 variable "pub_cidrs" {
   type        = list(string)
   description = "this list of ip address used for public subnet"
-  default     = ["172.17.0.0/19", "172.17.32.0/19", "172.17.64.0/19"]
 }
 
 variable "pri_cidrs" {
   type        = list(string)
   description = "this list of ip address used for private subnet"
-  default     = ["172.17.96.0/19", "172.17.128.0/19", "172.17.160.0/19"]
 }
 
 variable "azs" {
@@ -92,4 +90,9 @@ variable "allow-eip" {
 variable "environment" {
   type    = string
   default = null
+}
+
+variable "project" {
+  type    = string
+  default = "myorg"
 }

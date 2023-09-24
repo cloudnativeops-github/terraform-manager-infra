@@ -70,3 +70,4 @@ variable "allow-eip" {}
 #
 #variable "project" {}
 variable "environment" {}
+variable "project" {}

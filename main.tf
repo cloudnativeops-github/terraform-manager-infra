@@ -11,4 +11,5 @@ module "network" {
   pritag      = var.pritag
   allow-eip   = var.allow-eip
   environment = var.environment
+  project     = var.project
 }
