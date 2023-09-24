@@ -13,7 +13,7 @@ version: 0.2
   #exported-variables:
   # - variable
   # - variable
-  #git-credential-helper: yes
+  git-credential-helper: yes
   #batch:
   #fast-fail: true
   #build-list:
@@ -40,6 +40,8 @@ phases:
       - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
       - yum -y install terraform
       - terraform version
+      - pwd
+      - ls -la
       - git checkout ${BRANCH_NAME}
   build:
     commands:
