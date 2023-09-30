@@ -43,6 +43,7 @@ phases:
       - git checkout ${BRANCH_NAME}
   build:
     commands:
+      - sed -i 's/ENV/'${ENV}'/' backend.tf
       - terraform init
       - terraform apply -auto-approve -var-file="${ENV}_variables.tfvars"
 
